@@ -1,4 +1,4 @@
-//IntrodactionToOOP
+п»ї//IntrodactionToOOP
 #include"stdafx.h"
 
 class Point
@@ -40,7 +40,7 @@ void main()
 {
 	setlocale(0, "");
 #ifdef STRUCT_POINT
-	Point A; // Объявление переменной 'A' типа 'Point'
+	Point A; // РћР±СЉСЏРІР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ 'A' С‚РёРїР° 'Point'
 	A.x = 2;
 	A.y = 3;
 	cout << A.x << "\t" << A.y << endl;
