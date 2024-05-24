@@ -22,16 +22,17 @@ public:
 	{
 		this->y = y;
 	} 
-	double distance(double x, double y)const
+	double distance(Point A)const
 	{
-		return sqrt(pow(this->x - x, 2) + pow(this->y - y, 2));
+		return sqrt(pow(this->x - A.x, 2) + pow(this->y - A.y, 2));
 	}
 };
+
 
 double distance(Point A, Point B)
 {
 	//return sqrt(pow(A.get_x() - B.get_x(), 2) + pow(A.get_y() - B.get_y(), 2));
-	return A.distance(B.get_x(), B.get_y());
+	return A.distance(B);
 }
 
 //#define STRUCT_POINT
@@ -53,6 +54,6 @@ void main()
 	A.set_y(3);
 	B.set_x(6);
 	B.set_y(6);
-	cout << A.distance(6, 6) << endl;
+	cout << A.distance(B) << endl;
 	cout << distance(A, B) << endl;
 }
