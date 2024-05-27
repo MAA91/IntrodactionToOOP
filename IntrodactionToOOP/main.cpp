@@ -34,6 +34,14 @@ public:
 	{
 		cout << "Destractor:\t" << this << endl;
 	}
+	Point& operator = (const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssigment:\t" << this << endl;
+		return *this;
+	}
+
 	double get_x()const
 	{
 		return x;
@@ -68,8 +76,9 @@ double distance(const Point& A, const Point& B)
 }
 
 //#define STRUCT_POINT
-#define DISTANSE_CHECK
+//#define DISTANSE_CHECK
 //#define CONSTRUCTORS_CHECK
+#define ASIIDMENT_CHECK
 
 
 void main()
@@ -106,6 +115,16 @@ void main()
 	Point D = C;
 	D.print();
 #endif // CONSTRUCTORS_CHECK
-
+#ifdef ASIIDMENT_CHECK
+	/*Point A(2, 3);
+	Point B;
+	B = A;
+	B.print();*/
+	Point A, B, C;
+	A = B = C = Point(2, 3);
+	A.print();
+	B.print();
+	C.print();
+#endif // ASIIDMENT_CHECK
 
 }
