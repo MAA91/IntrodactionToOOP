@@ -34,6 +34,20 @@ public:
 	{
 		cout << "Destractor:\t" << this << endl;
 	}
+
+	Point& operator++()
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int)
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
 	Point& operator = (const Point& other)
 	{
 		this->x = other.x;
@@ -66,6 +80,7 @@ public:
 	{
 		cout << "( " << x << ", " << y << " )\n";
 	}
+
 };
 
 
@@ -75,10 +90,41 @@ double distance(const Point& A, const Point& B)
 	return A.distance(B);
 }
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+}
+Point operator-(const Point& left, const Point& right)
+{
+	Point result
+	(
+		left.get_x() - right.get_x(),
+		left.get_y() - right.get_y()
+	);
+	return result;
+}
+Point operator*(const Point& left, const Point& right)
+{
+	return Point 	
+	(
+		left.get_x() * right.get_x(),
+		left.get_y() * right.get_y()
+	);
+}
+bool operator==(const Point& left, const Point& right)
+{
+	return (left.get_x() == right.get_x() and left.get_y() == right.get_y());
+}
+
+
 //#define STRUCT_POINT
 //#define DISTANSE_CHECK
 //#define CONSTRUCTORS_CHECK
-#define ASIIDMENT_CHECK
+//#define ASIIDMENT_CHECK
+//#define ARIFMETICAL_OPERATORS_CHECK
 
 
 void main()
@@ -93,6 +139,7 @@ void main()
 	Point* pA = &A;
 	cout << pA->x << "\t" << pA->y << endl;
 #endif // STRUCT_POINT
+
 #ifdef DISTANSE_CHECK
 	Point A, B;
 	A.set_x(2);
@@ -102,6 +149,7 @@ void main()
 	cout << A.distance(B) << endl;
 	cout << distance(A, B) << endl;
 #endif // DISTANSE_CHECK
+
 #ifdef CONSTRUCTORS_CHECK
 	Point A;
 	A.print();
@@ -115,6 +163,7 @@ void main()
 	Point D = C;
 	D.print();
 #endif // CONSTRUCTORS_CHECK
+
 #ifdef ASIIDMENT_CHECK
 	/*Point A(2, 3);
 	Point B;
@@ -127,4 +176,17 @@ void main()
 	C.print();
 #endif // ASIIDMENT_CHECK
 
+#ifdef ARIFMETICAL_OPERATORS_CHECK
+	Point A(2, 3);
+	A.print();
+	Point B(7, 8);
+	B.print();
+
+	Point C = A * B;
+	C.print();
+	C++;
+	C.print();
+#endif // ARIFMETICAL_OPERATORS_CHECK
+
+	cout << (Point(2, 3) == Point(2, 3)) << endl;
 }
