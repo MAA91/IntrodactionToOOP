@@ -67,7 +67,7 @@ void main()
 	setlocale(0, "");
 	String str;
 	String str1 = "Hello";
-	String str2 = "World";	
+	String str2 = "World";
 	String str3 = str1 + str2;
 	str3.print();
 }

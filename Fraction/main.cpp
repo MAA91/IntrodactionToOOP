@@ -90,33 +90,31 @@ public:
 		numerator -= denominator;
 		return old;
 	}
-	Fraction& operator += (int right)
+	void operator += (const Fraction& right)
 	{
-		Fraction old = *this;
-		numerator += denominator * right;
-		old.reduction();
-		return old;
+		numerator *= right.denominator;
+		numerator += (right.numerator * denominator);
+		denominator *= right.denominator;
+		this->reduction();
 	}
-	Fraction& operator -= (int right)
+	void operator -= (const Fraction& right)
 	{
-		Fraction old = *this;
-		numerator -= denominator * right;
-		old.reduction();
-		return old;
+		numerator *= right.denominator;
+		numerator -= (right.numerator * denominator);
+		denominator *= right.denominator;
+		this->reduction();
 	}
-	Fraction& operator *= (int right)
+	void operator *= (const Fraction& right)
 	{
-		Fraction old = *this;
-		numerator *= right;
-		old.reduction();
-		return old;
+		numerator *= right.numerator;
+		denominator *= right.denominator;
+		this->reduction();
 	}
-	Fraction& operator /= (int right)
+	void operator /= (const Fraction& right)
 	{
-		Fraction old = *this;
-		denominator *= right;
-		old.reduction();
-		return old;
+		numerator *= right.denominator;
+		denominator *= right.numerator;
+		this->reduction();
 	}
 
 	void reduction()
@@ -262,10 +260,42 @@ Fraction operator / (const Fraction& left, const Fraction& right)
 	return result;
 }
 
+bool operator== (const Fraction& left, const Fraction& right)
+{
+	if (left.decimal_form() == right.decimal_form()) return true;
+	return false;
+}
+bool operator!= (const Fraction& left, const Fraction& right)
+{
+	if (left.decimal_form() != right.decimal_form()) return true;
+	return false;
+}
+bool operator> (const Fraction & left, const Fraction & right)
+{
+	if (left.decimal_form() > right.decimal_form()) return true;
+	return false;
+}
+bool operator>= (const Fraction& left, const Fraction& right)
+{
+	if (left.decimal_form() >= right.decimal_form()) return true;
+	return false;
+}
+bool operator< (const Fraction& left, const Fraction& right)
+{
+	if (left.decimal_form() < right.decimal_form()) return true;
+	return false;
+}
+bool operator<= (const Fraction& left, const Fraction& right)
+{
+	if (left.decimal_form() <= right.decimal_form()) return true;
+	return false;
+}
+
 //#define GET_SET_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define PARTS_CHECK
-#define OPERATORS_CHECK
+#define ARIFMETICALO_OPERATORS_CHECK
+
 
 void main()
 {
@@ -301,28 +331,11 @@ void main()
 	cout << "Fractional part: " << A.fractional_part() << endl;
 #endif // PARTS_CHECK
 
-#ifdef OPERATORS_CHECK
-	Fraction A, B;
-	A = B = Fraction(5, 3);
-	A.print();
-	B.print();
-
-	cout << A.decimal_form() << endl;
-	++A;
-	A.print();
-	cout << A.decimal_form() << endl;
-	--A;
-	A.print();
-	cout << A.decimal_form() << endl;
-
-	B++;
-	B.print();
-	cout << B.decimal_form() << endl;
-	B--;
-	B.print();
-	cout << B.decimal_form() << endl;
-
-	A /= 2;
+#ifdef ARIFMETICALO_OPERATORS_CHECK
+	Fraction A(5, 3); 
+	Fraction B(2, 5);
+	A *= B;
 	A.print();
 #endif // OPERATORS_CHECK
+
 }
