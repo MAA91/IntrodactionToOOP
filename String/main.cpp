@@ -6,7 +6,7 @@ class String
 private:
 	char* str;
 public:
-	char* get_str()
+	char* get_str()const
 	{
 		return str;
 	}
@@ -61,7 +61,12 @@ String operator+(String& left, String& right)
 		* (result.get_str() + i + j) = *(right.get_str() + j);
 	return result;
 }
-
+std::ostream& operator<<(std::ostream& os, const String& obj)
+{
+	for (int i = 0; *(obj.get_str() + i) != '\0'; i++)
+		cout << *(obj.get_str() + i);
+	return os;
+}
 void main()
 {	
 	setlocale(0, "");

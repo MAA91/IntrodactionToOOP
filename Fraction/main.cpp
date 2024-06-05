@@ -1,4 +1,6 @@
 //Fraction
+#define _CRT_SECURE_NO_WARNINGS
+
 #include"stdafx.h"
 
 class Fraction
@@ -54,11 +56,12 @@ public:
 	void print()const
 	{
 		if (numerator == 0)
-			cout << 0 << endl;
+			cout << 0;
 		else if (denominator == 1)
-			cout << numerator << endl;
+			cout << numerator;
 		else
-			cout << numerator << "/" << denominator << endl;
+			cout << numerator << "/" << denominator;
+		cout << endl;
 	}
 
 	Fraction& operator= (const Fraction& other)
@@ -291,6 +294,32 @@ bool operator<= (const Fraction& left, const Fraction& right)
 	return false;
 }
 
+std::ostream& operator<< (std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_numerator() == 0)
+		os << 0;
+	else if (obj.get_denominator() == 1)
+		os << obj.get_numerator();
+	else
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+	return os;
+}
+std::istream& operator>> (std::istream& is, Fraction& obj)
+{
+	const int SIZE = 32;
+	char buffer[SIZE]{};
+	is.getline(buffer, SIZE);
+	int number[2] {1, 1};
+	int n = 0;
+	const char delimeters[] = "()\\+/";
+	for (char* pch = strtok(buffer, delimeters);
+			pch; pch = strtok(NULL, delimeters))
+		number[n++] = atoi(pch);
+	obj.set_numerator(number[0]);
+	obj.set_denominator(number[1]);
+	return is;
+}
+
 //#define GET_SET_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define PARTS_CHECK
@@ -334,8 +363,9 @@ void main()
 #ifdef ARIFMETICALO_OPERATORS_CHECK
 	Fraction A(5, 3); 
 	Fraction B(2, 5);
-	A *= B;
-	A.print();
+	//A *= B;
+	cin >> A;
+	cout << A << endl;
 #endif // OPERATORS_CHECK
 
 }
