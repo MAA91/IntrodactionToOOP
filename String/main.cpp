@@ -5,34 +5,40 @@ class String
 {
 private:
 	char* str;
+	int size;
 public:
 	char* get_str()const
 	{
 		return str;
 	}
+	int get_size()const
+	{
+		return size;
+	}
 	void set_str(char* str)
 	{
 		this->str = str;
 	}
-
-	String()
+	void set_size(int size)
 	{
-		str = new char[40];
+		this->size = size;
+	}
+
+
+	String(int size = DEFAULT_SIZE)
+	{
+		str = new char[size] {};
+		this->size = size;
 		cout << "DefaultConstractor:\t" << this << endl;
 	}
 	String(const char* str)
 	{
 		int size = 0; for (size = 0; str[size] != '\0'; size++){}
-		this->str = new char[++size];
+		this->size = ++size;
+		this->str = new char[this->size] {};
 		for (int i = 0; i < size; i++)
 			this->str[i] = str[i];
 		cout << "Constractor:\t" << this << endl;
-	}
-	String(int size)
-	{
-		this->str = new char[size + 1];
-		this->str[size] = '\0';
-		cout << "SizeConstractor:\t" << this << endl;
 	}
 	~String()
 	{
@@ -42,9 +48,7 @@ public:
 
 	void print()const
 	{
-		for (int i = 0; str[i] != '\0'; i++)
-			cout <<  str[i];
-		cout << endl;
+		cout << str << endl;
 	}
 };
 
@@ -53,7 +57,8 @@ String operator+(String& left, String& right)
 	int size = 0; 
 	for (;*(left.get_str() + size) != '\0'; size++);
 	for (int i = 0; *(right.get_str() + i) != '\0'; size++, i++);
-	String result(size);
+	String result(++size);
+	*(result.get_str() + size - 1) = '\0';
 	int i = 0;
 	for (; *(left.get_str() + i) != '\0'; i++)
 		*(result.get_str() + i) = *(left.get_str() + i);
@@ -63,9 +68,19 @@ String operator+(String& left, String& right)
 }
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
-	for (int i = 0; *(obj.get_str() + i) != '\0'; i++)
-		cout << *(obj.get_str() + i);
+	cout << obj.get_str();
 	return os;
+}
+std::istream& operator>>(std::istream& is, String& obj)
+{
+	char* buf_str = new char[256] {};
+	is.getline(buf_str, 256);
+	int size = 0;
+	for (; buf_str[size] != '\0'; size++);
+	obj.set_size(size);
+	delete[] obj.get_str();
+	obj.set_str(buf_str);
+	return is;
 }
 void main()
 {	
@@ -74,5 +89,5 @@ void main()
 	String str1 = "Hello";
 	String str2 = "World";
 	String str3 = str1 + str2;
-	str3.print();
+	cout << str3 << endl;
 }

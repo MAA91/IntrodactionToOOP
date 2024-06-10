@@ -1,6 +1,4 @@
 //Fraction
-#define _CRT_SECURE_NO_WARNINGS
-
 #include"stdafx.h"
 
 class Fraction
@@ -14,12 +12,28 @@ public:
 		numerator = denominator = 1;
 		cout << "DefaultConstractor:\t" << this << endl;
 	}
-	Fraction(int numerator)
+	explicit Fraction(int numerator)
 	{
 		this->numerator = numerator;
 		this->denominator = 1;
-		cout << "1ArgConstractor:\t" << this << endl;
+		cout << "1ArgConstractorInt:\t" << this << endl;
 	}
+	/*Fraction(double value)
+	{
+		numerator = 0;
+		denominator = 1;
+		while (value >= 10)
+			value /= 10;
+		for (int i = 0; i < 9; i++)
+		{
+			numerator *= 10;
+			numerator += value;
+			denominator *= 10;
+			value;
+		}
+		this->reduction();
+		cout << "1ArgConstractorDouble:\t" << this << endl;
+	}*/
 	Fraction(int numerator, int denominator)
 	{
 		this->numerator = numerator;
@@ -146,6 +160,21 @@ public:
 	double fractional_part()const
 	{
 		return this->decimal_form() - this->integer_part();
+	}
+	int integer_rounding()const
+	{
+		if (this->fractional_part() < 0.5)
+			return this->integer_part();
+		return this->integer_part() + 1;
+	}
+
+	explicit operator int()
+	{
+		return this->integer_part();
+	}
+	operator double()
+	{
+		return this->decimal_form();
 	}
 };
 
@@ -320,11 +349,16 @@ std::istream& operator>> (std::istream& is, Fraction& obj)
 	return is;
 }
 
+
+
 //#define GET_SET_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define PARTS_CHECK
-#define ARIFMETICALO_OPERATORS_CHECK
-
+//#define ARIFMETICALO_OPERATORS_CHECK
+//#define CONVERTIONS_FROM_OTHER_TO_CLASS
+//#define CONVERTIONS_FROM_CLASS_TO_OTHER
+//#define CONVERSIONS_TASK_1
+#define CONVERSIONS_TASK_2
 
 void main()
 {
@@ -368,4 +402,33 @@ void main()
 	cout << A << endl;
 #endif // OPERATORS_CHECK
 
+#ifdef CONVERTIONS_FROM_OTHER_TO_CLASS
+	Fraction B;
+	B = Fraction(5);
+#endif // CONVERTIONS_FROM_OTHER_TO_CLASS
+
+#ifdef CONVERTIONS_FROM_CLASS_TO_OTHER
+	Fraction A(102, 4);
+	cout << A << endl;
+	int a = (int)A;
+	cout << a << endl;
+
+	double b = (double)A;
+	cout << b << endl;
+#endif // CONVERTIONS_FROM_CLASS_TO_OTHER
+
+#ifdef CONVERSIONS_TASK_1
+	Fraction A(3, 4);
+	cout << A << endl;
+
+	//int a = (int)A;
+	double a = A;
+	cout << a << endl;
+
+#endif // CONVERSIONS_TASK_1
+
+#ifdef CONVERSIONS_TASK_2
+	Fraction B = 2.75;
+	cout << B << endl;
+#endif // CONVERSIONS_TASK_2
 }
