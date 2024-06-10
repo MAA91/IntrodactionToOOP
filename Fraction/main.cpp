@@ -18,22 +18,26 @@ public:
 		this->denominator = 1;
 		cout << "1ArgConstractorInt:\t" << this << endl;
 	}
-	/*Fraction(double value)
+	Fraction(double value)
 	{
 		numerator = 0;
 		denominator = 1;
-		while (value >= 10)
-			value /= 10;
-		for (int i = 0; i < 9; i++)
+		int size_integer = 1;
+		for (; !(value >= pow(10, size_integer - 1) and value < pow(10, size_integer)); size_integer++);
+		numerator = value;
+		value -= (int)value;
+		value *= 10;
+		for (int i = 0; i < 9 - size_integer; i++)
 		{
+			denominator *= 10;
 			numerator *= 10;
 			numerator += value;
-			denominator *= 10;
-			value;
+			value -= (int)value;
+			value *= 10;
 		}
 		this->reduction();
 		cout << "1ArgConstractorDouble:\t" << this << endl;
-	}*/
+	}
 	Fraction(int numerator, int denominator)
 	{
 		this->numerator = numerator;
