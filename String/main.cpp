@@ -7,11 +7,11 @@ private:
 	char* str;
 	int size;
 public:
-	char* get_str()const
+	const char* get_str()const
 	{
 		return str;
 	}
-	int get_size()const
+	const int get_size()const
 	{
 		return size;
 	}
@@ -57,13 +57,13 @@ String operator+(String& left, String& right)
 	int size = 0; 
 	for (;*(left.get_str() + size) != '\0'; size++);
 	for (int i = 0; *(right.get_str() + i) != '\0'; size++, i++);
-	String result(++size);
-	*(result.get_str() + size - 1) = '\0';
+	char* str = new char[++size] {};
 	int i = 0;
 	for (; *(left.get_str() + i) != '\0'; i++)
-		*(result.get_str() + i) = *(left.get_str() + i);
+		*(str + i) = *(left.get_str() + i);
 	for (int j = 0; *(right.get_str() + j) != '\0'; j++)
-		* (result.get_str() + i + j) = *(right.get_str() + j);
+		* (str + i + j) = *(right.get_str() + j);
+	String result(str);
 	return result;
 }
 std::ostream& operator<<(std::ostream& os, const String& obj)

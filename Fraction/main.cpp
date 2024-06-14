@@ -21,8 +21,9 @@ public:
 	Fraction(double value)
 	{
 		numerator = 0;
+		value += 10e-11;
 		denominator = 1;
-		int size_integer = 1;
+		int size_integer = 0;
 		for (; !(value >= pow(10, size_integer - 1) and value < pow(10, size_integer)); size_integer++);
 		numerator = value;
 		value -= (int)value;
@@ -432,7 +433,7 @@ void main()
 #endif // CONVERSIONS_TASK_1
 
 #ifdef CONVERSIONS_TASK_2
-	Fraction B = 2.75;
+	Fraction B = .333;
 	cout << B << endl;
 #endif // CONVERSIONS_TASK_2
 }
