@@ -14,7 +14,7 @@ public:
 	void set_rows(int rows) { this->rows = rows; }
 	void set_cols(int cols) { this->cols = cols; }
 
-	Matrix(int value = 0, int rows = DEFAULT_ROWS, int cols = DEFAULT_COLS)
+	Matrix(int rows = DEFAULT_ROWS, int cols = DEFAULT_COLS)
 	{
 		this->rows = rows;
 		this->cols = cols;
@@ -22,9 +22,6 @@ public:
 		for (int i = 0; i < rows; i++)
 		{
 			this->matrix[i] = new int[cols] {};
-			if (value)
-				for (int j = 0; j < cols; j++)
-					matrix[i][j] = value;
 		}
 	}
 	Matrix(int** matrix, int rows, int cols)
@@ -54,6 +51,12 @@ public:
 				matrix[i][j] = other.matrix[i][j];
 		}
 	}
+	Matrix(int value)
+	{
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < cols; j++)
+				matrix[i][j] = value;
+	}
 	~Matrix()
 	{
 		for (int i = 0; i < rows; i++)
@@ -81,6 +84,17 @@ public:
 			matrix[i] = new int[cols];
 			for (int j = 0; j < cols; j++)
 				this->matrix[i][j] = other.matrix[i][j];
+		}
+		return *this;
+	}
+	Matrix& operator=(int other)
+	{
+		matrix = new int* [rows];
+		for (int i = 0; i < rows; i++)
+		{
+			matrix[i] = new int[cols];
+			for (int j = 0; j < cols; j++)
+				this->matrix[i][j] = other;
 		}
 		return *this;
 	}
@@ -130,7 +144,8 @@ void main()
 	setlocale(0, "");
 	srand(time(NULL));
 
-	Matrix matrix1(1);
+	Matrix matrix1;
 	cout << matrix1 << endl;
+	matrix1 = 1;
 	cout << matrix1 << endl;
 }

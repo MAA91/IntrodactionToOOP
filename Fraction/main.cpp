@@ -360,10 +360,10 @@ std::istream& operator>> (std::istream& is, Fraction& obj)
 //#define CONSTRUCTORS_CHECK
 //#define PARTS_CHECK
 //#define ARIFMETICALO_OPERATORS_CHECK
-//#define CONVERTIONS_FROM_OTHER_TO_CLASS
+#define CONVERTIONS_FROM_OTHER_TO_CLASS
 //#define CONVERTIONS_FROM_CLASS_TO_OTHER
 //#define CONVERSIONS_TASK_1
-#define CONVERSIONS_TASK_2
+//#define CONVERSIONS_TASK_2
 
 void main()
 {
