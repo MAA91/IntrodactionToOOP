@@ -29,25 +29,25 @@ public:
 	}
 
 
-	explicit String(int size = DEFAULT_SIZE)
+	explicit String(int size = DEFAULT_SIZE) :size(size), str(new char[size] {})
 	{
-		str = new char[size] {};
-		this->size = size;
+		//str = new char[size] {};
+		//this->size = size;
 		cout << "DefaultConstractor:\t" << this << endl;
 	}
-	String(const char* str)
+	String(const char* str):size(strlen(str)), str(new char[size] {})
 	{
-		int size = 0; for (size = 0; str[size] != '\0'; size++){}
+		/*int size = 0; for (size = 0; str[size] != '\0'; size++){}
 		this->size = ++size;
-		this->str = new char[this->size] {};
+		this->str = new char[this->size] {}*/;
 		for (int i = 0; i < size; i++)
 			this->str[i] = str[i];
 		cout << "Constractor:\t" << this << endl;
 	}
-	String(const String& Str)
+	String(const String& Str):size(Str.size), str(new char[size] {})
 	{
-		this->size = Str.size;
-		this->str = new char[size] {};
+		/*this->size = Str.size;
+		this->str = new char[size] {};*/
 		for (int i = 0; i < size; i++)
 			this->str[i] = Str.str[i];
 		cout << "Constractor:\t" << this << endl;
@@ -135,13 +135,20 @@ std::istream& operator>>(std::istream& is, String& obj)
 	obj.set_str(buf_str);
 	return is;
 }
+
+//#define CAT_CHECK
+#define CONSTRAKTORS_CHEK
+
 void main()
 {	
 	setlocale(0, "");
-	String str;
-	String str1 = "Hello";
-	String str2 = "World";
-	String str3;
-	str3 = str1 + " " + str2;
-	cout << str3 << endl;
+#ifdef CAT_CHECK
+
+#endif // CAT_CHECK
+
+#ifdef CONSTRAKTORS_CHEK
+
+#endif // CONSTRAKTORS_CHEK
+
+
 }

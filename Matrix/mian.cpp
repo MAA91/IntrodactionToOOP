@@ -51,12 +51,6 @@ public:
 				matrix[i][j] = other.matrix[i][j];
 		}
 	}
-	Matrix(int value)
-	{
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				matrix[i][j] = value;
-	}
 	~Matrix()
 	{
 		for (int i = 0; i < rows; i++)
