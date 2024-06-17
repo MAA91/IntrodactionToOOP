@@ -11,6 +11,10 @@ public:
 	{
 		return str;
 	}
+	char* get_str()
+	{
+		return str;
+	}
 	const int get_size()const
 	{
 		return size;
@@ -25,7 +29,7 @@ public:
 	}
 
 
-	String(int size = DEFAULT_SIZE)
+	explicit String(int size = DEFAULT_SIZE)
 	{
 		str = new char[size] {};
 		this->size = size;
@@ -40,10 +44,30 @@ public:
 			this->str[i] = str[i];
 		cout << "Constractor:\t" << this << endl;
 	}
+	String(const String& Str)
+	{
+		this->size = Str.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+			this->str[i] = Str.str[i];
+		cout << "Constractor:\t" << this << endl;
+	}
 	~String()
 	{
 		delete[] str;
 		cout << "Destractor:\t" << this << endl;
+	}
+
+	String& operator=(const String& right)
+	{
+		if (this == &right) return *this;
+		delete[] str;
+		this->size = right.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+			str[i] = right.str[i];
+		cout << "CopyAssigment:\t" << this << endl;
+		return *this;
 	}
 
 	void print()const
@@ -52,20 +76,49 @@ public:
 	}
 };
 
-String operator+(String& left, String& right)
+String operator+(const String& left, const String& right)
 {
-	int size = 0; 
-	for (;*(left.get_str() + size) != '\0'; size++);
-	for (int i = 0; *(right.get_str() + i) != '\0'; size++, i++);
-	char* str = new char[++size] {};
-	int i = 0;
-	for (; *(left.get_str() + i) != '\0'; i++)
-		*(str + i) = *(left.get_str() + i);
-	for (int j = 0; *(right.get_str() + j) != '\0'; j++)
-		* (str + i + j) = *(right.get_str() + j);
-	String result(str);
+	String result(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size() - 1; i++)
+		result.get_str()[i] = *(left.get_str() + i);
+	for (int i = 0; i < right.get_size() - 1; i++)
+		result.get_str()[left.get_size() + i - 1] = *(right.get_str() + i);
 	return result;
 }
+
+bool operator==(const String& left, const String& right)
+{
+	if (left.get_size() != right.get_size())
+		return false;
+	for (int i = 0; i < left.get_size(); i++)
+		if (*(left.get_str() + i) != *(right.get_str() + i))
+			return false;
+	return true;
+}
+bool operator!=(const String& left, const String& right)
+{
+	return !(left == right);
+}
+bool operator >(const String& left, const String& right)
+{
+	for (int i = 0; i < (left.get_size() > right.get_size() ? right.get_size() : left.get_size()); i++)
+		if (*(left.get_str() + i) > *(right.get_str() + i))
+			return true;
+	return (left.get_size() > right.get_size() ? true : false);
+}
+bool operator <(const String& left, const String& right)
+{
+	return (!(left > right) && left != right);
+}
+bool operator >=(const String& left, const String& right)
+{
+	return (left > right || left == right);
+}
+bool operator <=(const String& left, const String& right)
+{
+	return (left < right || left == right);
+}
+
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
 	cout << obj.get_str();
@@ -88,6 +141,7 @@ void main()
 	String str;
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + str2;
+	String str3;
+	str3 = str1 + " " + str2;
 	cout << str3 << endl;
 }
