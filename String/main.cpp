@@ -39,7 +39,7 @@ public:
 	{
 		/*int size = 0; for (size = 0; str[size] != '\0'; size++){}
 		this->size = ++size;
-		this->str = new char[this->size] {}*/;
+		this->str = new char[this->size] {};*/
 		for (int i = 0; i < size; i++)
 			this->str[i] = str[i];
 		cout << "Constractor:\t" << this << endl;
