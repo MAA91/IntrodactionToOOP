@@ -35,21 +35,20 @@ public:
 		//this->size = size;
 		cout << "DefaultConstractor:\t" << this << endl;
 	}
-	String(const char* str):size(strlen(str)), str(new char[size] {})
+	String(const char* str):String(strlen(str) + 1)
 	{
 		/*int size = 0; for (size = 0; str[size] != '\0'; size++){}
 		this->size = ++size;
-		this->str = new char[this->size] {};*/
-		for (int i = 0; i < size; i++)
-			this->str[i] = str[i];
+		this->str = new char[this->size] {};
+		for (int i = 0; i < size; i++) this->str[i] = str[i];*/
 		cout << "Constractor:\t" << this << endl;
 	}
-	String(const String& Str):size(Str.size), str(new char[size] {})
+	String(const String& Str):String(Str.str)
 	{
 		/*this->size = Str.size;
-		this->str = new char[size] {};*/
+		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
-			this->str[i] = Str.str[i];
+			this->str[i] = Str.str[i];*/
 		cout << "Constractor:\t" << this << endl;
 	}
 	~String()
