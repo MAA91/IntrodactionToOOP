@@ -14,23 +14,16 @@ public:
 	void set_rows(int rows) { this->rows = rows; }
 	void set_cols(int cols) { this->cols = cols; }
 
-	Matrix(int rows = DEFAULT_ROWS, int cols = DEFAULT_COLS)
+	Matrix(int rows = DEFAULT_ROWS, int cols = DEFAULT_COLS):rows(rows), cols(cols)
 	{
-		this->rows = rows;
-		this->cols = cols;
-		this->matrix = new int* [rows];
+		matrix = new int* [rows];
 		for (int i = 0; i < rows; i++)
 		{
 			this->matrix[i] = new int[cols] {};
 		}
 	}
-	Matrix(int** matrix, int rows, int cols)
+	Matrix(int** matrix, int rows, int cols):Matrix(rows, cols)
 	{
-		this->cols = cols;
-		this->rows = rows;
-		for (int i = 0; i < rows; i++)
-			delete[] matrix[i];
-		delete[] matrix;
 		matrix = new int* [rows];
 		for (int i = 0; i < rows; i++)
 		{
@@ -39,10 +32,8 @@ public:
 				this->matrix[i][j] = matrix[i][j];
 		}
 	}
-	Matrix(Matrix& other)
+	Matrix(const Matrix& other):Matrix(other.matrix, other.rows, other.cols)
 	{
-		cols = other.cols;
-		rows = other.rows;
 		matrix = new int* [rows];
 		for (int i = 0; i < rows; i++)
 		{
@@ -58,7 +49,7 @@ public:
 		delete[] matrix;
 	}
 
-	void FillRand(int min, int max)
+	void FillRand(int min = 0, int max = 9)
 	{
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
@@ -139,7 +130,8 @@ void main()
 	srand(time(NULL));
 
 	Matrix matrix1;
+	matrix1.FillRand();
+	Matrix matrix2(matrix1);
 	cout << matrix1 << endl;
-	matrix1 = 1;
-	cout << matrix1 << endl;
+	cout << matrix2 << endl;
 }
